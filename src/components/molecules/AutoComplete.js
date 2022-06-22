@@ -89,10 +89,6 @@ const AutoComplete = ({
           )
         })}
       </ul>
-
-
-
-
     ) : (
       <div className="no-suggestions">
         <span role="img" aria-label="tear emoji">
