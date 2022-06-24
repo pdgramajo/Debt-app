@@ -9,8 +9,8 @@ export default class Api {
         // headers: { Authorization: Authentication.bearerToken() },
         params
       }
-      const response = Axios.get(`${API.BaseURL}/${url}`, config)
-      return response
+      const response = await Axios.get(`${API.BaseURL}/${url}`, config)
+      return response.data.data
     } catch (error) {
       return error.toJSON()
     }
@@ -22,7 +22,7 @@ export default class Api {
         // headers: { Authorization: Authentication.bearerToken() },
       }
       const response = Axios.post(`${API.BaseURL}/${url}`, data, config)
-      return response
+      return response.data.data
     } catch (error) {
       return error.toJSON()
     }
@@ -34,7 +34,7 @@ export default class Api {
         // headers: { Authorization: Authentication.bearerToken() },
       }
       const response = Axios.put(`${API.BaseURL}/${url}`, data, config)
-      return response
+      return response.data.data
     } catch (error) {
       return error.toJSON()
     }
@@ -47,7 +47,7 @@ export default class Api {
         data
       }
       const response = Axios.delete(`${API.BaseURL}/${url}`, config)
-      return response
+      return response.data.data
     } catch (error) {
       return error.toJSON()
     }
