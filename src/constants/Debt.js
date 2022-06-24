@@ -1,6 +1,0 @@
-export const GET_DEBT = 'GET_DEBT'
-export const GET_DEBTS = 'GET_DEBTS'
-export const GET_DEBTS_BY_USER = 'GET_DEBTS_BY_USER'
-export const ADD_DEBT = 'ADD_DEBT'
-export const EDIT_DEBT = 'EDIT_DEBT'
-export const DELETE_DEBT = 'DELETE_DEBT'

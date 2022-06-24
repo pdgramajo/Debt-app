@@ -1,25 +1,29 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import UserContext from '../../contexts/UserContext'
+import { getAllUsers } from '../../store/slices/UserSlice'
+
 import AutoComplete from '../molecules/AutoComplete'
 
 const UserList = () => {
   const navigate = useNavigate()
-  const { getUsers, users, getUserById } = useContext(UserContext)
+  const dispatch = useDispatch()
+  const { users } = useSelector(state => state.userState)
 
   useEffect(() => {
-    getUsers()
+    dispatch(getAllUsers())
     // setFilteredUsers(users);
-  }, [users])
+  }, [])
 
   const handleClick = id => {
-    getUserById(id)
+    // getUserById(id)
     navigate(`/users/${id}`)
   }
 
   return (
     <section className="flex flex-col justify-center gap-3 items-center mt-5">
       <AutoComplete suggestions={users} propertyToSearch="first_name" />
+      <h1>hola</h1>
 
       <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900 ">
         {users

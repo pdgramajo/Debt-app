@@ -1,35 +1,32 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import DebtContext from '../../contexts/DebtContext'
-import UserContext from '../../contexts/UserContext'
+import { getUserById } from '../../store/slices/UserSlice'
+import { getDebtByUserId } from '../../store/slices/DebtSlice'
 import Button from '../atoms/Button'
 
 const UserDetails = () => {
   const { id } = useParams()
-  const { selectedUser, getUsers, users, getUserById } = useContext(UserContext)
-  const { debts, getDebtsByUserId } = useContext(DebtContext)
+  const dispatch = useDispatch()
+  const { userSelected } = useSelector(state => state.userState)
+  const { debtsSelected } = useSelector(state => state.debtState)
 
   useEffect(() => {
-    if (users.length === 0) {
-      getUsers()
-    }
-    if (!selectedUser) {
-      getUserById(parseInt(id))
-    }
-    getDebtsByUserId(parseInt(id))
+    dispatch(getUserById(id))
+    dispatch(getDebtByUserId(id))
   }, [])
 
   return (
-    selectedUser && (
+    userSelected && (
       <article>
         <div className="flex flex-col justify-center">
           <div>
-            <h1>{`${selectedUser.first_name} ${selectedUser.last_name}`}</h1>
-            <h2>{selectedUser.email}</h2>
+            <h1>{`${userSelected.first_name} ${userSelected.last_name}`}</h1>
+            <h2>{userSelected.email}</h2>
           </div>
           <div className="flex flex-col flex-wrap justify-center gap-1">
-            {debts &&
-              debts.map(debt => (
+            {debtsSelected &&
+              debtsSelected.map(debt => (
                 <div className="grid grid-cols-2" key={debt.id}>
                   <div className="grid-cols-10">{`${debt.amount} $`}</div>
                   <div className="grid-cols-2">
@@ -52,18 +49,3 @@ const UserDetails = () => {
 }
 
 export default UserDetails
-
-/**    
- * <Card title={`${debt.amount} $`}>
-                 
-                 <div className="text-gray-700 text-base mb-4">
-                    {debt.description}
-                  </div>
-                  <div className="flex justify-between">
-                    <Button size={"mini"} textSize={"xs"}>Save</Button>
-                    <Button size={"mini"} textSize={"xs"} type="outline">
-                      Cancel
-                    </Button>
-                  </div> 
-                </Card>
-                 */
