@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-// import Api from '../../lib/Api'
-import Debts from '../../mocks/Debts.mock'
+import Api from '../../lib/Api'
 
 const debtSlice = createSlice({
   name: 'bebtState',
@@ -22,12 +21,10 @@ export const { setSelectedDebt, setDebtList } = debtSlice.actions
 export default debtSlice.reducer
 
 export const getAllDebts = () => async dispatch => {
-  //   const response = await Api.get('users?per_page=12')
-  const response = Debts
+  const response = await Api.get('debts')
   dispatch(setDebtList(response))
 }
 export const getDebtByUserId = userId => async dispatch => {
-  //   const response = await Api.get(`users/${id}`)
-  const response = Debts.filter(d => d.userId === parseInt(userId))
+  const response = await Api.get(`users/${userId}/debts`)
   dispatch(setSelectedDebt(response))
 }

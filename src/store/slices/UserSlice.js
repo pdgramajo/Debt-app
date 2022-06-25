@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-// import Api from '../../lib/Api'
-import mockUsers from '../../mocks/Users.mock'
+import Api from '../../lib/Api'
 
 const userSlice = createSlice({
   name: 'userState',
@@ -22,12 +21,10 @@ export const { setSelectedUser, setUserList } = userSlice.actions
 export default userSlice.reducer
 
 export const getAllUsers = () => async dispatch => {
-  //   const response = await Api.get('users?per_page=12')
-  const response = mockUsers
+  const response = await Api.get('users')
   dispatch(setUserList(response))
 }
-export const getUserById = id => dispatch => {
-  //   const response = await Api.get(`users/${id}`)
-  const response = mockUsers.find(u => u.id === parseInt(id))
+export const getUserById = id => async dispatch => {
+  const response = await Api.get(`users/${id}`)
   dispatch(setSelectedUser(response))
 }
